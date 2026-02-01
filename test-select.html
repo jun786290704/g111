@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>选择框测试</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 20px;
+      background: #1a1c2e;
+      color: white;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+    h3 {
+      margin-top: 0;
+    }
+    select {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+    .native-select {
+      background: white;
+      color: black;
+    }
+    .styled-select {
+      background: #0f172a;
+      color: white;
+      border: 2px solid #374151;
+      -webkit-appearance: menulist;
+      appearance: menulist;
+    }
+    .result {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(0,255,0,0.2);
+      border-radius: 5px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>📱 移动端选择框测试</h2>
+  
+  <div class="test-section">
+    <h3>测试 1: 原生选择框</h3>
+    <select class="native-select" onchange="showResult('test1', this.value)">
+      <option value="">请点击选择</option>
+      <option value="option1">选项 1</option>
+      <option value="option2">选项 2</option>
+      <option value="option3">选项 3</option>
+    </select>
+    <div id="result-test1" class="result"></div>
+  </div>
+
+  <div class="test-section">
+    <h3>测试 2: 样式化选择框</h3>
+    <select class="styled-select" onchange="showResult('test2', this.value)">
+      <option value="">请点击选择</option>
+      <option value="warrior1">🧙‍♂️ 战士 #1</option>
+      <option value="warrior2">🧙‍♂️ 战士 #2</option>
+      <option value="warrior3">🧙‍♂️ 战士 #3</option>
+    </select>
+    <div id="result-test2" class="result"></div>
+  </div>
+
+  <div class="test-section">
+    <h3>测试 3: 深色背景选择框</h3>
+    <select 
+      style="width: 100%; background: #111827; color: white; border: 2px solid #4b5563; padding: 12px; border-radius: 8px; font-size: 16px;"
+      onchange="showResult('test3', this.value)"
+    >
+      <option value="">请选择武器</option>
+      <option value="weapon1">⚔️ 剑 (战力: 100)</option>
+      <option value="weapon2">⚔️ 刀 (战力: 150)</option>
+      <option value="weapon3">⚔️ 枪 (战力: 200)</option>
+    </select>
+    <div id="result-test3" class="result"></div>
+  </div>
+
+  <script>
+    function showResult(testId, value) {
+      if (!value) return;
+      const resultDiv = document.getElementById('result-' + testId);
+      resultDiv.style.display = 'block';
+      resultDiv.textContent = '✅ 选择成功: ' + value + ' (时间: ' + new Date().toLocaleTimeString() + ')';
+      console.log(testId + ' 选择了:', value);
+    }
+
+    // 记录触摸事件
+    document.querySelectorAll('select').forEach((select, index) => {
+      select.addEventListener('touchstart', function(e) {
+        console.log('Test ' + (index + 1) + ' touchstart');
+      });
+      select.addEventListener('click', function(e) {
+        console.log('Test ' + (index + 1) + ' click');
+      });
+      select.addEventListener('focus', function(e) {
+        console.log('Test ' + (index + 1) + ' focus');
+      });
+    });
+  </script>
+</body>
+</html>
